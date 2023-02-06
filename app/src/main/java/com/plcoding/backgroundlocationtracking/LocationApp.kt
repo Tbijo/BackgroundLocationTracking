@@ -6,10 +6,14 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 
+// Register in Manifest
+
 class LocationApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Create notification channel for android build newer then O
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "location",

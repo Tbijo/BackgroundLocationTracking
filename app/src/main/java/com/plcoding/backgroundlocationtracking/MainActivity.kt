@@ -23,6 +23,9 @@ import com.plcoding.backgroundlocationtracking.ui.theme.BackgroundLocationTracki
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // asking for permission before using
+        // Should rework for handling if the user declines permissions
         ActivityCompat.requestPermissions(
             this,
             arrayOf(
@@ -31,14 +34,17 @@ class MainActivity : ComponentActivity() {
             ),
             0
         )
+
         setContent {
             BackgroundLocationTrackingTheme {
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Button(onClick = {
+                        // Launch the service by sending it a Intent
                         Intent(applicationContext, LocationService::class.java).apply {
                             action = LocationService.ACTION_START
+                            // send function
                             startService(this)
                         }
                     }) {
@@ -46,8 +52,10 @@ class MainActivity : ComponentActivity() {
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
+                        // Stop the service by sending it a Intent
                         Intent(applicationContext, LocationService::class.java).apply {
                             action = LocationService.ACTION_STOP
+                            // send function
                             startService(this)
                         }
                     }) {
